@@ -89,6 +89,9 @@ gulp.task('deploy', () => {
 });
 
 gulp.task('default', ['build'], () => {
+  gulp.watch('src/images/**', ['images']);
+  gulp.watch('src/fonts/**', ['fonts']);
+  gulp.watch('src/sounds/**', ['sounds']);
   gulp.watch('src/index.html', ['html']).on('change', browserSync.reload);
   gulp.watch('src/scss/style.scss', ['css']).on('change', browserSync.reload);
   gulp.watch('src/js/app.js', ['js']).on('change', browserSync.reload);

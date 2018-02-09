@@ -1,12 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>WDI Project 1: JavaScript Game</title>
-    <script src="/js/app.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="/css/style.css">
-  </head>
-  <body>
-    <h1>WDI Project 1: JavaScript Game</h1>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Type</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+  <script src="/js/app.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <!-- MODAL -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <button class="playBtn">play button</button>
+      <p>Game blurb</p>
+    </div>
+  </div>
+
+  <!-- GAME INTERFACE -->
+  <main>
+    <!-- TIMER -->
+    <header>
+      <div class="div-timer">
+        <h1 id="timerText">30</h1>
+      </div>
+    </header>
+
+    <!-- GAMEPLAY AREA -->
+    <section class="gameplayArea">
+
+      <h1>WDI Project 1: JavaScript Game</h1>
+      <div class="round-1-type">
+        <h3>TYPE</h3>
+        <p id="change-me">Change me</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- INPUT, SUBMIT AND SCORE -->
+  <footer>
+    <div class="left-footer">
+    </div>
+
+    <div class="usersInput">
+      <form class="form">
+        <input id="text-box" type="text" name="input-friends">
+        <input type="submit" name="input-friends">
+      </form>
+    </div>
+
+    <div class="score">
+      <h2 class="scoreText">Score: <span id="scoreNum">0</span></h2>
+    </div>
+  </footer>
+
+</body>
 </html>

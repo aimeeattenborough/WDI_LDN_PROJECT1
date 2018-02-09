@@ -1,7 +1,124 @@
+* {
+  box-sizing: border-box;
+}
 
 body {
-  background-color: pink;
+  background-color: grey;
 }
 h1 {
   text-align: center;
+}
+
+// MODAL
+/* The Modal (background) */
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,1); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 50%;
+
+}
+/* The play Button */
+.playBtn {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 30px;
+    margin-top: 150px;
+}
+.playBtn:hover,
+.playBtn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+// MODAL END
+
+// Gameplay area
+
+.gameplayArea {
+  height: 550px;
+}
+
+#change-me {
+  font-size: 80px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Footer with users input and score
+
+.footer {
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  height: 0;
+}
+.left-footer {
+  margin: 0 auto;
+  width: 40%;
+  height: 200px;
+  background-color: purple;
+  display: inline-block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+.usersInput {
+  margin: 0 auto;
+  width: 40%;
+  height: 200px;
+  background-color: pink;
+  display: inline-block;
+  border: 0;
+  padding: 0;
+  float: left;
+}
+.score {
+  width: 20%;
+  height: 200px;
+  background-color: orange;
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  float: right;
+}
+.scoreText {
+  padding: 0;
+  border: 0;
+  margin: 0;
 }
