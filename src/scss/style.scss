@@ -56,26 +56,18 @@ h1 {
   height: 550px;
 }
 
-#change-me {
-  font-size: 80px;
-  text-align: center;
+
+.wordScroll {
+  animation: moveRight 5s linear infinite;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@keyframes moveRight {
+ from {
+   margin-left: 0;
+ }
+ to {
+   margin-left: 100%;}
+}
 
 
 // Footer with users input and score
