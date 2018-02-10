@@ -3,10 +3,15 @@
 }
 
 body {
-  background-color: grey;
+  background-color: #C9E8E0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 h1 {
   text-align: center;
+  font-size: 50px;
 }
 
 // MODAL
@@ -41,6 +46,7 @@ h1 {
     font-weight: bold;
     margin-right: 30px;
     margin-top: 150px;
+    position: relative;
 }
 .playBtn:hover,
 .playBtn:focus {
@@ -53,7 +59,7 @@ h1 {
 // Gameplay area
 
 .gameplayArea {
-  height: 550px;
+  height: 500px;
 }
 
 
@@ -80,9 +86,9 @@ h1 {
 }
 .left-footer {
   margin: 0 auto;
-  width: 40%;
-  height: 200px;
-  background-color: purple;
+  width: 35%;
+  height: 110px;
+  background-color: black;
   display: inline-block;
   border: 0;
   padding: 0;
@@ -91,26 +97,57 @@ h1 {
 }
 .usersInput {
   margin: 0 auto;
-  width: 40%;
-  height: 200px;
-  background-color: pink;
+  width: 35%;
+  height: 110px;
+  background-color: black;
   display: inline-block;
   border: 0;
   padding: 0;
   float: left;
 }
-.score {
-  width: 20%;
-  height: 200px;
-  background-color: orange;
+.score-div {
+  width: 30%;
+  height: 110px;
+  background-color: black;
   display: inline-block;
   margin: 0;
   border: 0;
   padding: 0;
-  float: right;
+  float: left;
 }
-.scoreText {
+.score-text {
   padding: 0;
   border: 0;
-  margin: 0;
+  margin: 5px 20px;
+  color: white;
+  float: right;
+  font-size: 35px;
+}
+
+
+
+#text-box {
+    width: 60%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    float: left;
+}
+
+input[type=submit] {
+    width: 30%;
+    background-color: grey;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+}
+
+input[type=submit]:hover {
+    background-color: #A43628;
 }
