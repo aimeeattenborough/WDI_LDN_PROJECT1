@@ -5,10 +5,10 @@ $(() => {
 
   // VARIABLES timer and play game
   const $timerText = $('#timerText');
-  let runCreateWordsInterval = null;
   const $gameplayArea = $('.gameplayArea');
   let wordsOnScreen = [];
   let wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny'];
+  let levelSpeed = 5;
 
   // VARIABLES check for match
   const $form = $('.form');
@@ -21,10 +21,11 @@ $(() => {
   const $gameTitle = $('.game-title');
   const $playBtn = $('.playBtn');
   const $scoreBoard = $('.score-board');
-  let $result = $('.result');
+  const $congrats = $('.congrats');
   const $finalScore = $('.final-score');
   const $resetButton = $('.reset-button');
   const $finalScoreNumber = $('.final-score-number');
+  const $level2Btn = $('.level2');
 
   // FUNCTIONS
 
@@ -50,11 +51,14 @@ $(() => {
   }
 
   // WORD PLAY
+
+  let createWordsInterval = null;
+
   function playGame() {
 
     // setInterval is self calling every 2 seconds and invoking the runCreateWords function
 
-    runCreateWordsInterval = setInterval(() => {
+    createWordsInterval = setInterval(() => {
       runCreateWords();
     }, 2000);
 
@@ -70,12 +74,17 @@ $(() => {
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
       wordsOnScreen.push(randomWord);
       console.log('wordsOnScreen:', wordsOnScreen);
+      //
+      // $gameplayArea.css('animation', `moveRight ${levelSpeed}s linear infinite`);
+      //
       $gameplayArea.append(`<p id="${randomWord}" class="wordScroll">${randomWord}</p>`);
       setTimeout(() => {
         removeWordFromScreen(randomWord);
-      }, 5000);
+      }, levelSpeed * 1000);
     }
   }
+
+
 
   function removeWordFromScreen(word) {
     const $word = $(`#${word}`);
@@ -110,15 +119,21 @@ $(() => {
   // RESET BUTTON
 
   function reset() {
-    clearInterval(runCreateWordsInterval);
+    clearInterval(createWordsInterval);
     $finalScoreNumber.text(result);
     $modal.show();
     $gameTitle.hide();
     $playBtn.hide();
     $scoreBoard.show();
     $finalScore.show();
-    $resetButton.show();
     $score.text(0);
+    if (result >= 5) {
+      $congrats.text('Congratulations!');
+      $level2Btn.show();
+    } else {
+      $congrats.text('Sorry but your score is not high enough');
+      $resetButton.show();
+    }
   }
 
   // EVENT LISTENERS
@@ -131,11 +146,22 @@ $(() => {
   });
 
   $resetButton.on('click', () => {
-    $gameTitle.show();
-    $playBtn.show();
-    $scoreBoard.hide();
-    $finalScore.hide();
-    $resetButton.hide();
+    $modal.hide();
+    playGame();
+    checkForMatch();
+    timer();
+  });
+
+  $level2Btn.on('click', () => {
+    ///
+    levelSpeed = 1;
+    // const $wordScroll = $('.wordScroll');
+    // $wordScroll.css('animation', `moveRight ${levelSpeed}s linear infinite`);
+    ///
+    $modal.hide();
+    playGame();
+    checkForMatch();
+    timer();
   });
 
 // End of page
