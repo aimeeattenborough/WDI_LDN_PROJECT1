@@ -7,8 +7,6 @@ $(() => {
   const $timerText = $('#timerText');
   const $gameplayArea = $('.gameplayArea');
   const wordsOnScreen = [];
-  const wordElements = [];
-  const wordTimers = [];
   const wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny'];
   let levelSpeed = 5;
   let timeoutId;
@@ -35,7 +33,7 @@ $(() => {
 
   // TIMER
   function timer() {
-    let time = 20;
+    let time = 30;
     let countDown = null;
     countDown = setInterval(() => {
       time--;
@@ -55,24 +53,22 @@ $(() => {
 
   function playGame() {
     $modal.hide();
-    // function runCreateWords is generating a random number which is being apssed into the timeout function. The timeout is calling the createWords function at a random interval passing  in rand as an argument.
+
     function createWords() {
       const delay = Math.round(Math.random() * 2500) + 2500;
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-      // const randomWord = 'chicken';
-      wordsOnScreen.push(randomWord);
       const $word = $('<p>', { text: randomWord, class: 'word' });
-      wordElements.push($word);
+      wordsOnScreen.push({ word: randomWord, element: $word });
+      console.log(wordsOnScreen);
       $gameplayArea.append($word);
+
       $word.animate({ left: '100vw' }, levelSpeed * 1000, 'linear', () => {
-        if(!$word.hasClass('removed')) {
+        const wordIndex = wordsOnScreen.findIndex(obj => obj.element === $word);
+        if(wordIndex > -1) {
           $word.remove();
-          const wordIndex = wordsOnScreen.indexOf(randomWord);
           wordsOnScreen.splice(wordIndex, 1);
-          wordElements.splice(wordIndex, 1);
         }
       });
-      console.log('word created', wordsOnScreen);
 
       createWordsInterval = setTimeout(createWords, delay);
       // const wordTimer = setTimeout(() => {
@@ -119,12 +115,9 @@ $(() => {
   function checkForMatch(e) {
     e.preventDefault();
     console.log('checking for match...');
-    const foundIndex = wordsOnScreen.indexOf($input.val());
+    const foundIndex = wordsOnScreen.findIndex(obj => obj.word === $input.val());
     if(foundIndex > -1) {
-      wordsOnScreen.splice(foundIndex, 1);
-      const $word = wordElements.splice(foundIndex, 1)[0];
-      $word.addClass('removed');
-      $word.remove();
+      wordsOnScreen.splice(foundIndex, 1)[0].element.remove();
       result++;
       $score.text(result);
       console.log('yay');
