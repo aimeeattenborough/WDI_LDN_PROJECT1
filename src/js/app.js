@@ -8,7 +8,7 @@ $(() => {
   let runCreateWordsInterval = null;
   const $gameplayArea = $('.gameplayArea');
   let wordsOnScreen = [];
-  const wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'turtle'];
+  let wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny'];
 
   // VARIABLES check for match
   const $form = $('.form');
@@ -24,7 +24,7 @@ $(() => {
   let $result = $('.result');
   const $finalScore = $('.final-score');
   const $resetButton = $('.reset-button');
-  let $finalScoreNumber = $('.final-score-number');
+  const $finalScoreNumber = $('.final-score-number');
 
   // FUNCTIONS
 
@@ -40,8 +40,8 @@ $(() => {
         if (time === 0) {
           clearInterval(countDown);
           timeRunning = false;
-          setInterval(() => {
-            resetButton();
+          setTimeout(() => {
+            reset();
           }, 1500);
         }
         $timerText.html(time);
@@ -68,22 +68,22 @@ $(() => {
     // createWords is creating a random word from an array and pushing it into an empty array. The const key is generating a random interger which is being passed in as the id of the random word generated, allowing the specific word to be removed when the removeWord function is called.
     function createWords(){
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-      const key = Math.floor(Math.random() * 100);
-      wordsOnScreen.push({key: key, word: randomWord});
-      $gameplayArea.append(`<p id="${key}" class="wordScroll">${randomWord}</p>`);
-      removeWordFromScreen(key);
-    }
-    // removeWord is removing the specific element with the same key id as that which has been generated in createWords, and shift is removing the first word from the wordsOnScreen array.
-    function removeWordFromScreen(key) {
+      wordsOnScreen.push(randomWord);
+      console.log('wordsOnScreen:', wordsOnScreen);
+      $gameplayArea.append(`<p id="${randomWord}" class="wordScroll">${randomWord}</p>`);
       setTimeout(() => {
-        $('#' + key).remove();
-        console.log(wordsOnScreen);
-        removeWordFromArray(key);
+        removeWordFromScreen(randomWord);
       }, 5000);
     }
-    // // removeWordFromArray is filtering through the words that don't have the current key - taking the current word out..
-    function removeWordFromArray(key)  {
-      wordsOnScreen = wordsOnScreen.filter(word => word.key !== key);
+  }
+
+  function removeWordFromScreen(word) {
+    const $word = $(`#${word}`);
+    // when we call the function, above, we pass in randomWord as word in this case. This function takes any word. const word in the createWords scenario is selecting the whole DOM element, with the ID of the word, in this case, the random word.
+    if ($word) {
+      $word.remove();
+      wordsOnScreen = wordsOnScreen.filter(word => word !== $word.html());
+      // if the word is part of the wordsOnScreen array, we filter to create a new array, consisting of all words that do not have the same html as our current randomWord.
     }
   }
 
@@ -92,21 +92,24 @@ $(() => {
   function checkForMatch() {
     $form.on('submit', (e) => {
       e.preventDefault();
-      wordsOnScreen.find(wordInArray => {
-        console.log(wordInArray, $input.val());
-        if (wordInArray.word === $input.val()) {
+      wordsOnScreen.forEach(wordInArray => {
+        if (wordInArray === $input.val()) {
           result ++;
           $score.text(result);
-          $input.val('');
+          removeWordFromScreen(wordInArray);
+          // word in array is the current one being passed in from the forEach function.
+          wordList = wordList.filter(word => word !== wordInArray);
+          // wordList is being filtered to create a new array of words that are not our word.
           console.log('yay');
         }
+        $input.val('');
       });
     });
   }
 
   // RESET BUTTON
 
-  function resetButton() {
+  function reset() {
     clearInterval(runCreateWordsInterval);
     $finalScoreNumber.text(result);
     $modal.show();
@@ -115,6 +118,7 @@ $(() => {
     $scoreBoard.show();
     $finalScore.show();
     $resetButton.show();
+    $score.text(0);
   }
 
   // EVENT LISTENERS
@@ -126,7 +130,6 @@ $(() => {
     timer();
   });
 
-// NEED TO FIX RESET BUTTON CUS HE IS DOING NOTHING ATM
   $resetButton.on('click', () => {
     $gameTitle.show();
     $playBtn.show();
@@ -137,6 +140,3 @@ $(() => {
 
 // End of page
 });
-
-
-// current issues - you can enter the same input on one word over and over again the whole time it is on screen, can spam enter
