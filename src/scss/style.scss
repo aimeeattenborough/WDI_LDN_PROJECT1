@@ -20,6 +20,12 @@ p.word {
   left: 0;
 }
 
+p.special {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: red;
+}
 // MODAL
 /* The Modal (background) */
 .modal {
@@ -227,6 +233,13 @@ input[type=submit]:hover {
   height: 300px;
   width: 300px;
   background-color: blue;
+  display: none;
+
+}
+.end-div {
+  height: 300px;
+  width: 300px;
+  background-color: green;
   display: none;
 
 }

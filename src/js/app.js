@@ -8,7 +8,12 @@ $(() => {
   const $gameplayArea = $('.gameplayArea');
   const wordsOnScreen = [];
   const wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny'];
+  const specialWordList = ['special'];
   let levelSpeed = 5;
+  //
+  let initialSound = true;
+  const minTimeBetweenWords = 500;
+  const maxTimeBetweenWords = 2500;
 
   // VARIABLES check for match
   const $form = $('.form');
@@ -31,7 +36,7 @@ $(() => {
 
   // TIMER
   function timer() {
-    let time = 10;
+    let time = 20;
     let countDown = null;
     countDown = setInterval(() => {
       time--;
@@ -56,22 +61,35 @@ $(() => {
     $divCommiserations.hide();
     $nextLevelScreen.hide();
 
-
-    // $audio.attr('src', '/sounds/pressStart.wav');
-    // $audio.get(0).play();
+    if (initialSound){
+      $audio.attr('src', '/sounds/pressStart.wav');
+      $audio.get(0).play();
+      initialSound = false;
+    }
 
     function createWords() {
-      const delay = Math.round(Math.random() * 2500) + 2500;
+      const delay = Math.round(Math.random() * maxTimeBetweenWords) + minTimeBetweenWords;
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
       const $word = $('<p>', { text: randomWord, class: 'word' });
-      // const word is generating the random p DOM elements with a class of word ** WHY class?
+      // const word is generating the random p DOM elements with a class of word
       wordsOnScreen.push({ word: randomWord, element: $word });
-      console.log(wordsOnScreen);
       // we are pushing randomWord into the wordsOnScreen array as an object with DOM elements $word in the object
+      createWordsInterval = setTimeout(createWords, delay);
+      animateWord($word, levelSpeed * 1000);
+    }
+
+    function createSpecialWord() {
+      const specialWord = specialWordList[Math.floor(Math.random() * specialWordList.length)];
+      const $word = $('<p>', { text: specialWord, class: 'word special' });
+      wordsOnScreen.push({ word: specialWord, element: $word });
+      animateWord($word, levelSpeed * 500);
+    }
+
+    function animateWord($word, speed) {
       $gameplayArea.append($word);
       // appending the DOM elements to the gameplayArea
 
-      $word.animate({ left: '100vw' }, levelSpeed * 1000, 'linear', () => {
+      $word.animate({ left: '100vw' }, speed, 'linear', () => {
         const wordIndex = wordsOnScreen.findIndex(obj => obj.element === $word);
         // wordIndex is searching wordsOnScreen - find the object that has the element that is the same as the DOM $word and return the index. If it is higher than -1, i.e truthy, remove this DOM element from the array
         if(wordIndex > -1) {
@@ -79,8 +97,8 @@ $(() => {
           wordsOnScreen.splice(wordIndex, 1);
         }
       });
-      createWordsInterval = setTimeout(createWords, delay);
     }
+    setTimeout(createSpecialWord, 5000);
     createWords();
     timer();
   }
@@ -105,6 +123,7 @@ $(() => {
   $form.on('submit', checkForMatch);
 
   // NEXT LEVEL FUNCTION
+  const $endDiv = $('.end-div');
 
   function nextLevel() {
     clearInterval(createWordsInterval);
@@ -113,13 +132,16 @@ $(() => {
     $input.val('');
     $nextLevelScreen.show();
     if (result >= 1) {
-      levelSpeed --;
+      levelSpeed = Math.max(levelSpeed-1,2);
+      if (levelSpeed === 2){
+        $endDiv.show();
+      }
       $divCongrats.show();
     } else {
       $divCommiserations.show();
     }
     result = 0;
-    setTimeout(playGame, 12000);
+    setTimeout(playGame, 5000);
   }
 
   // EVENT LISTENERS
