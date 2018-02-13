@@ -36,28 +36,51 @@ p.word {
 }
 /* Modal Content */
 .modal-content {
-    background-color: black;
+    background-image:url("https://i.imgur.com/NERi1Sw.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000D73;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    height: 60%;
+    height: 80%;
+    display: flex;
 
 }
-.game-title {
-  color: white;
-  font-size: 80px;
-}
+
 /* The play Button */
 .playBtn {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
     font-weight: bold;
-    margin-right: 30px;
-    margin-top: 150px;
-    position: relative;
+    margin: auto;
+    margin-top: 0 auto;
+    height: 20px;
+    align-items: flex-end;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    outline:none;
+    margin-bottom: 65px;
+    animation: flash 1.6s infinite;
 }
+
+
+@keyframes flash {
+  from, 50%, to {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.flash {
+  -webkit-animation-name: flash;
+  animation-name: flash;
+}
+
+
 .playBtn:hover,
 .playBtn:focus {
     color: #000;
@@ -91,7 +114,6 @@ p.word {
   position: relative;
 }
 
-
 .wordScroll {
   animation: moveRight 5s linear infinite;
 }
@@ -103,11 +125,6 @@ p.word {
  to {
    margin-left: 100%;}
 }
-
-
-
-
-
 
 
 // Footer with users input and score
@@ -158,8 +175,6 @@ p.word {
   font-size: 35px;
 }
 
-
-
 #text-box {
     width: 60%;
     padding: 12px 20px;
@@ -172,16 +187,46 @@ p.word {
 
 input[type=submit] {
     width: 30%;
-    background-color: grey;
-    color: white;
+    background-image: url("https://i.imgur.com/hvMuWRO.png");
     padding: 14px 20px;
-    margin: 8px 10px;
+    margin: 15px 10px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     float: left;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    outline:none;
 }
 
 input[type=submit]:hover {
-    background-color: #A43628;
+    // background-color: #A43628;
+}
+
+
+// NEXT LEVEL screen
+
+.next-level-screen {
+  background-color: black;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: none;
+}
+
+.div-congrats {
+  height: 300px;
+  width: 300px;
+  background-color: pink;
+  display: none;
+}
+
+.div-commiserations {
+  height: 300px;
+  width: 300px;
+  background-color: blue;
+  display: none;
+
 }
