@@ -10,8 +10,8 @@ $(() => {
   const wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny'];
   const specialWordList = ['special'];
   let levelSpeed = 5;
-  //
   let initialSound = true;
+  //
   const minTimeBetweenWords = 500;
   const maxTimeBetweenWords = 2500;
 
@@ -38,9 +38,10 @@ $(() => {
   function timer() {
     let time = 20;
     let countDown = null;
+    $timerText.html(time);
     countDown = setInterval(() => {
       time--;
-      if (time === 0) {
+      if (time < 0) {
         console.log('time is zero');
         clearInterval(countDown);
         clearTimeout(createWordsInterval);
@@ -78,10 +79,11 @@ $(() => {
       animateWord($word, levelSpeed * 1000);
     }
 
+    const specialWordDelay = Math.round(Math.random() * 20000);
     function createSpecialWord() {
       const specialWord = specialWordList[Math.floor(Math.random() * specialWordList.length)];
       const $word = $('<p>', { text: specialWord, class: 'word special' });
-      wordsOnScreen.push({ word: specialWord, element: $word });
+      wordsOnScreen.push({ word: specialWord, element: $word, class: 'special' });
       animateWord($word, levelSpeed * 500);
     }
 
@@ -98,7 +100,7 @@ $(() => {
         }
       });
     }
-    setTimeout(createSpecialWord, 5000);
+    setTimeout(createSpecialWord, specialWordDelay);
     createWords();
     timer();
   }
@@ -111,13 +113,16 @@ $(() => {
     // searching the wordsOnScreen array for the index of the object with the same word as the input value. If it is found we will remove the whole element. * is this removing the entire object?
     const foundIndex = wordsOnScreen.findIndex(obj => obj.word === $input.val());
     if(foundIndex > -1) {
+
+      if (wordsOnScreen[foundIndex].class === 'special'){
+        result = result + 5;
+      } else {
+        result++;
+      }
       wordsOnScreen.splice(foundIndex, 1)[0].element.remove();
-      result++;
       $score.text(result);
-      console.log('yay');
     }
     $input.val('');
-
   }
 
   $form.on('submit', checkForMatch);
@@ -133,10 +138,12 @@ $(() => {
     $nextLevelScreen.show();
     if (result >= 1) {
       levelSpeed = Math.max(levelSpeed-1,2);
+      $divCongrats.show();
       if (levelSpeed === 2){
         $endDiv.show();
+        $divCongrats.hide();
+        return;
       }
-      $divCongrats.show();
     } else {
       $divCommiserations.show();
     }
@@ -146,10 +153,6 @@ $(() => {
 
   // EVENT LISTENERS
   $playBtn.on('click', playGame);
-
-  // $wordScroll.css('animation', `moveRight ${levelSpeed}s linear infinite`);
-
-
 
 // End of page
 });
