@@ -7,7 +7,7 @@ body {
   border: 0;
   padding: 0;
   margin: 0;
-  font-family: 'Heebo', sans-serif;
+  font-family: 'Bungee Inline', cursive;
 }
 h1 {
   text-align: center;
@@ -17,8 +17,9 @@ h1 {
 }
 
 p {
-  font-size: 30px;
+  font-size: 35px;
   color: white;
+  font-weight: bold;
 }
 
 p.word {
@@ -113,6 +114,7 @@ header {
 
 .gameplayArea {
   height: 600px;
+  padding-top: 100px;
   position: relative;
 }
 
@@ -186,12 +188,11 @@ main {
   margin: 5px 20px;
   color: white;
   float: right;
-  font-size: 15px;
-  // font-family: 'Press Start 2P', cursive;
+  font-size: 25px;
 }
 
 #text-box {
-    width: 60%;
+    width: 80%;
     padding: 12px 20px;
     margin: 8px 0;
     border: 1px solid #ccc;
@@ -201,7 +202,7 @@ main {
 }
 
 .submit {
-     width: 30%;
+     width: 0%;
      background-color: #8F556A;
      color: white;
      padding: 14px 20px;
@@ -210,11 +211,9 @@ main {
      border-radius: 4px;
      cursor: pointer;
      float: left;
+     display: none;
  }
 
-.submit:hover {
-     background-color: #A43628;
-  }
 
 
 // Next level / try again screens
@@ -242,6 +241,9 @@ main {
     width: 500px;
     height: 300px;
     margin: 100px auto;
+    img {
+      margin: 10px auto;
+    }
   }
 
   .div-commiserations {
