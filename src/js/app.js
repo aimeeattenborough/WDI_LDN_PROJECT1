@@ -6,14 +6,20 @@ $(() => {
   // VARIABLES timer and play game
   const $timerText = $('#timerText');
   const $gameplayArea = $('.gameplayArea');
+  let initialSound = true;
+  let gameMusicVar = true;
   const wordsOnScreen = [];
   const wordList = ['banana', 'pen', 'fight', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny', 'apple', 'pineapple'];
-  const specialWordList = ['hadouken'];
   let levelSpeed = 4.5;
-  let initialSound = true;
-  //
   const minTimeBetweenWords = 500;
   const maxTimeBetweenWords = 2000;
+  // create special words
+  const specialWordList = ['hadouken'];
+  const img = document.createElement('img');
+  img.style.height = '120px';
+  img.src = 'https://i.imgur.com/6qkmc10.png';
+
+  const specialWordDelay = Math.round(Math.random() * 20000);
 
   // VARIABLES check for match
   const $form = $('.form');
@@ -35,7 +41,21 @@ $(() => {
   const $backToMain = $('.back-to-main');
   let timerID;
 
+  // VARIABLE SOUNDS sounds
+  const $getReadyFighters = $('#get-ready');
+  const $beatEmUp = $('#beat-em-up');
+
   // FUNCTIONS
+
+  // SOUNDS
+  function getReadySound() {
+    $getReadyFighters.attr('src', '/sounds/get_ready_fighters.wav');
+    $getReadyFighters.get(0).play();
+  }
+  function beatEmUpSound() {
+    $beatEmUp.attr('src', '/sounds/get_ready_fighters.wav');
+    $beatEmUp.get(0).play();
+  }
 
   // TIMER
   function timer() {
@@ -64,11 +84,22 @@ $(() => {
     $divCongrats.hide();
     $divCommiserations.hide();
     $nextLevelScreen.hide();
+    $endDiv.hide();
+
+    $(document).ready(function() {
+      $input.focus();
+    });
 
     if (initialSound){
       $pressStartSound.attr('src', '/sounds/pressStart.wav');
       $pressStartSound.get(0).play();
+      setTimeout(getReadySound, 1000);
       initialSound = false;
+    }
+
+    if(gameMusicVar){
+      gameMusic();
+      gameMusicVar = false;
     }
 
 
@@ -83,11 +114,6 @@ $(() => {
       animateWord($word, levelSpeed * 1000);
     }
 
-    const img = document.createElement('img');
-    img.style.height = '120px';
-    img.src = 'https://i.imgur.com/6qkmc10.png';
-
-    const specialWordDelay = Math.round(Math.random() * 20000);
 
     function createSpecialWord() {
       const specialWord = specialWordList[Math.floor(Math.random() * specialWordList.length)];
@@ -141,7 +167,8 @@ $(() => {
 
   // NEXT LEVEL FUNCTION
 
-  const hasEndOfGame = false;
+  const hasEndOfGame = false; //i dont think i need this - to check
+
 
   function nextLevel() {
     clearInterval(createWordsInterval);
@@ -149,12 +176,11 @@ $(() => {
     $score.text(0);
     $input.val('');
     $nextLevelScreen.show();
-    if (result >= 10) {
+    if (result >= 1) {
       levelSpeed = Math.max(levelSpeed-1,1.5);
       $divCongrats.show();
       if (levelSpeed === 3.5){
-        // setTimeout(level3Theme, 5000);
-        // clearTimeout(level3Theme, 25000);
+        setTimeout(beatEmUpSound, 5000);
       }
       if (levelSpeed === 1.5){
         $endDiv.show();
@@ -184,8 +210,17 @@ $(() => {
 
   function resetGame() {
     levelSpeed = 4.5;
+    result = 0;
     $nextLevelScreen.hide();
     $modal.show();
+  }
+
+  //AUDIO game music
+
+  const $gameMusic = $('#game-music');
+  function gameMusic() {
+    $gameMusic.attr('src', '/sounds/akuma_stage.mp3');
+    $gameMusic.get(0).play();
   }
 
 
