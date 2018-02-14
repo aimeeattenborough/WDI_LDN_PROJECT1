@@ -7,11 +7,19 @@ body {
   border: 0;
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Heebo', sans-serif;
 }
 h1 {
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
+  color: white;
+  margin: 0;
+  // font-family: 'Press Start 2P', cursive;
+}
+
+p {
+  font-size: 30px;
+  color: white;
 }
 
 p.word {
@@ -25,6 +33,7 @@ p.special {
   top: 0;
   left: 0;
   color: red;
+  background-image: url("https://i.imgur.com/6qkmc10.png");
 }
 // MODAL
 /* The Modal (background) */
@@ -39,36 +48,42 @@ p.special {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,1); /* Black w/ opacity */
-}
-/* Modal Content */
-.modal-content {
-    background-image:url("https://i.imgur.com/NERi1Sw.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #000D73;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    height: 80%;
-    display: flex;
+    /* Modal Content */
+    .modal-content {
+      background-image:url("https://i.imgur.com/NERi1Sw.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #000D73;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      height: 80%;
+      display: flex;
 
+    }
+    /* The play Button */
+    .playBtn {
+      font-weight: bold;
+      margin: auto;
+      margin-top: 0 auto;
+      height: 20px;
+      align-items: flex-end;
+      background-color: Transparent;
+      background-repeat:no-repeat;
+      border: none;
+      outline:none;
+      margin-bottom: 75px;
+      animation: flash 1.6s infinite;
+    }
+    .playBtn:hover,
+    .playBtn:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
 }
 
-/* The play Button */
-.playBtn {
-    font-weight: bold;
-    margin: auto;
-    margin-top: 0 auto;
-    height: 20px;
-    align-items: flex-end;
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    outline:none;
-    margin-bottom: 65px;
-    animation: flash 1.6s infinite;
-}
 
 
 @keyframes flash {
@@ -87,37 +102,31 @@ p.special {
 }
 
 
-.playBtn:hover,
-.playBtn:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 
-// Modal reset
-.score-board {
-  display: none;
-  color: white;
-}
-.final-score {
-  display: none;
-  color: white;
-}
-.reset-button {
-  display: none;
-}
-.level2 {
-  display: none;
-}
-
-
-// MODAL END
 
 // Gameplay area
 
+// timer
+header {
+  padding-top: 30px;
+  margin: 0px, 0px, 100px, 0px;
+}
+
 .gameplayArea {
-  height: 500px;
+  height: 600px;
   position: relative;
+}
+
+main {
+  margin: 0;
+  background: linear-gradient(
+                     rgba(20,20,20, .2),
+                     rgba(20,20,20, .2)),
+                     url("https://i.imgur.com/H5HB5V3.gif");
+                     background-size: cover;
+                     background-repeat:no-repeat;
+                     background-position: center;
+
 }
 
 .wordScroll {
@@ -178,7 +187,8 @@ p.special {
   margin: 5px 20px;
   color: white;
   float: right;
-  font-size: 35px;
+  font-size: 15px;
+  // font-family: 'Press Start 2P', cursive;
 }
 
 #text-box {
@@ -191,25 +201,34 @@ p.special {
     float: left;
 }
 
-input[type=submit] {
-    width: 30%;
-    background-image: url("https://i.imgur.com/hvMuWRO.png");
-    padding: 14px 20px;
-    margin: 15px 10px;
-    border: none;
-    cursor: pointer;
-    float: left;
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    outline:none;
-}
-
-input[type=submit]:hover {
-    // background-color: #A43628;
+.submit {
+  width: 30%;
+  color: white;
+  padding: 14px 20px;
+  margin: 15px 10px;
+  border: none;
+  cursor: pointer;
+  float: left;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  outline:none;
 }
 
 
-// NEXT LEVEL screen
+// Next level / try again screens
+.back-to-main {
+  height: 20px;
+  display: none;
+  z-index: 1;
+}
+.score-board {
+  display: none;
+  color: white;
+}
+.final-score {
+  display: none;
+  color: white;
+}
 
 .next-level-screen {
   background-color: black;
@@ -221,21 +240,29 @@ input[type=submit]:hover {
   z-index: 1;
   display: none;
 }
+.next-level-screen p {
+  color: whiten;
+  font-size: 20px;
+  text-align: center;
+}
 
 .div-congrats {
+  width: 500px;
   height: 300px;
-  width: 300px;
-  background-color: pink;
-  display: none;
+  margin: 100px auto;
 }
 
 .div-commiserations {
+  width: 500px;
   height: 300px;
-  width: 300px;
-  background-color: blue;
+  margin: 100px auto;
   display: none;
-
 }
+.div-commiserations img {
+  width: 100px;
+  height: auto;
+}
+
 .end-div {
   height: 300px;
   width: 300px;

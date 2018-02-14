@@ -5,7 +5,8 @@
   <title>Street Typer II</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
   <script src="/js/app.js" charset="utf-8"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -19,24 +20,6 @@
     </div>
   </div>
 
-  <!-- NEXT LEVEL / TRY AGAIN -->
-  <div class="next-level-screen">
-
-    <div class="div-congrats">
-      <p>Congratulations</p>
-      <p>Your final score was <span class="final-score-number">X</span></p>
-    </div>
-
-    <div class="div-commiserations">
-      <p>Sorry your score this round is not high enough to reach the next level, please try Again</p>
-      <p>Your final score was <span class="final-score-number">X</span></p>
-    </div>
-
-    <div class="end-div">
-
-    </div>
-
-  </div>
 
   <!-- GAME INTERFACE -->
   <main>
@@ -66,12 +49,34 @@
     <div class="usersInput">
       <form class="form">
         <input id="text-box" type="text" name="input-friends">
-        <input type="submit" name="input-friends">
+        <input class ="submit" type="submit" name="input-friends">
       </form>
     </div>
 
     <div class="score-div">
       <h2 class="score-text">Score: <span id="score">0</span></h2>
+    </div>
+
+    <!-- NEXT LEVEL / TRY AGAIN -->
+    <div class="next-level-screen">
+
+      <div class="div-congrats">
+        <p>YOU WIN</p>
+        <p>Congratulations you have scored enough to move on to the next level. Your final score is <span class="final-score-number">X</span></p>
+        <img src="https://i.imgur.com/jqmqsFl.gif" alt="ryu">
+      </div>
+
+      <div class="div-commiserations">
+        <p>KO</p>
+        <p>Sorry your score is not high enough to reach the next level, please try again. Your final score is <span class="final-score-number">X</span></p>
+        <img src="https://i.imgur.com/pHBmFoA.gif" alt="noogie">
+      </div>
+
+      <div class="end-div">
+        <p>Congratulations you have completed the game.</p>
+        <button class="back-to-main">Return to main menu</button>
+      </div>
+
     </div>
   </footer>
 <audio></audio>

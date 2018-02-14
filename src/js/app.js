@@ -8,7 +8,7 @@ $(() => {
   const $gameplayArea = $('.gameplayArea');
   const wordsOnScreen = [];
   const wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny'];
-  const specialWordList = ['special'];
+  const specialWordList = ['hadouken'];
   let levelSpeed = 5;
   let initialSound = true;
   //
@@ -31,6 +31,8 @@ $(() => {
   const $nextLevelScreen = $('.next-level-screen');
   const $divCongrats = $('.div-congrats');
   const $divCommiserations = $('.div-commiserations');
+  const $endDiv = $('.end-div');
+  let timerID;
 
   // FUNCTIONS
 
@@ -62,11 +64,11 @@ $(() => {
     $divCommiserations.hide();
     $nextLevelScreen.hide();
 
-    if (initialSound){
-      $audio.attr('src', '/sounds/pressStart.wav');
-      $audio.get(0).play();
-      initialSound = false;
-    }
+    // if (initialSound){
+    //   $audio.attr('src', '/sounds/pressStart.wav');
+    //   $audio.get(0).play();
+    //   initialSound = false;
+    // }
 
     function createWords() {
       const delay = Math.round(Math.random() * maxTimeBetweenWords) + minTimeBetweenWords;
@@ -79,12 +81,18 @@ $(() => {
       animateWord($word, levelSpeed * 1000);
     }
 
+    const img = document.createElement('img');
+    img.style.height = '120px';
+    img.src = 'https://i.imgur.com/6qkmc10.png';
+
     const specialWordDelay = Math.round(Math.random() * 20000);
     function createSpecialWord() {
       const specialWord = specialWordList[Math.floor(Math.random() * specialWordList.length)];
-      const $word = $('<p>', { text: specialWord, class: 'word special' });
-      wordsOnScreen.push({ word: specialWord, element: $word, class: 'special' });
-      animateWord($word, levelSpeed * 500);
+      const $imgContainer = $('<div>');
+      $imgContainer.css({display: 'inlineBlock', position: 'absolute'});
+      $imgContainer.append(`<p style="margin-top: -16px" class="${specialWord}">${specialWord}</p></div>`);
+      $imgContainer.prepend(img);
+      animateWord($imgContainer, levelSpeed * 500);
     }
 
     function animateWord($word, speed) {
@@ -113,9 +121,8 @@ $(() => {
     // searching the wordsOnScreen array for the index of the object with the same word as the input value. If it is found we will remove the whole element. * is this removing the entire object?
     const foundIndex = wordsOnScreen.findIndex(obj => obj.word === $input.val());
     if(foundIndex > -1) {
-
       if (wordsOnScreen[foundIndex].class === 'special'){
-        result = result + 5;
+        result += 5;
       } else {
         result++;
       }
@@ -128,7 +135,10 @@ $(() => {
   $form.on('submit', checkForMatch);
 
   // NEXT LEVEL FUNCTION
-  const $endDiv = $('.end-div');
+
+  const $backToMain = $('.back-to-main');
+
+  let hasEndOfGame = false;
 
   function nextLevel() {
     clearInterval(createWordsInterval);
@@ -141,18 +151,39 @@ $(() => {
       $divCongrats.show();
       if (levelSpeed === 2){
         $endDiv.show();
+        $backToMain.show();
         $divCongrats.hide();
-        return;
+        gameOver();
       }
     } else {
       $divCommiserations.show();
     }
-    result = 0;
-    setTimeout(playGame, 5000);
+    if (levelSpeed !==2){
+      result = 0;
+      timerID = setTimeout(playGame, 5000);
+    }
   }
+
+  // GAME OVER FUNCTION!
+
+  function gameOver() {
+    if (levelSpeed > 2) {
+      hasEndOfGame === false;
+    } else {
+      hasEndOfGame === true;
+      clearTimeout(timerID);
+    }
+  }
+
 
   // EVENT LISTENERS
   $playBtn.on('click', playGame);
+
+  $backToMain.on('click', () => {
+    levelSpeed = 5;
+    $nextLevelScreen.hide();
+    $modal.show();
+  });
 
 // End of page
 });
