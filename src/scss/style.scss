@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #C9E8E0;
+  background-color: black;
   border: 0;
   padding: 0;
   margin: 0;
@@ -14,7 +14,6 @@ h1 {
   font-size: 30px;
   color: white;
   margin: 0;
-  // font-family: 'Press Start 2P', cursive;
 }
 
 p {
@@ -73,7 +72,7 @@ p.special {
       background-repeat:no-repeat;
       border: none;
       outline:none;
-      margin-bottom: 75px;
+      margin-bottom: 100px;
       animation: flash 1.6s infinite;
     }
     .playBtn:hover,
@@ -202,29 +201,24 @@ main {
 }
 
 .submit {
-  width: 30%;
-  color: white;
-  padding: 14px 20px;
-  margin: 15px 10px;
-  border: none;
-  cursor: pointer;
-  float: left;
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  outline:none;
-}
+     width: 30%;
+     background-color: #8F556A;
+     color: white;
+     padding: 14px 20px;
+     margin: 8px 10px;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+     float: left;
+ }
+
+.submit:hover {
+     background-color: #A43628;
+  }
 
 
 // Next level / try again screens
-.back-to-main {
-  height: 20px;
-  display: none;
-  z-index: 1;
-}
-.score-board {
-  display: none;
-  color: white;
-}
+
 .final-score {
   display: none;
   color: white;
@@ -239,34 +233,37 @@ main {
   right: 0;
   z-index: 1;
   display: none;
-}
-.next-level-screen p {
-  color: whiten;
-  font-size: 20px;
-  text-align: center;
-}
+  p {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+  }
+  .div-congrats {
+    width: 500px;
+    height: 300px;
+    margin: 100px auto;
+  }
 
-.div-congrats {
-  width: 500px;
-  height: 300px;
-  margin: 100px auto;
-}
+  .div-commiserations {
+    width: 500px;
+    height: 300px;
+    margin: 100px auto;
+    display: none;
+  }
+  .div-commiserations img {
+    width: 100px;
+    height: auto;
+  }
+  .end-div {
+    width: 500px;
+    height: 300px;
+    margin: 100px auto;
+    display: none;
 
-.div-commiserations {
-  width: 500px;
-  height: 300px;
-  margin: 100px auto;
-  display: none;
-}
-.div-commiserations img {
-  width: 100px;
-  height: auto;
-}
-
-.end-div {
-  height: 300px;
-  width: 300px;
-  background-color: green;
-  display: none;
-
+    .back-to-main {
+      height: 20px;
+      display: none;
+      z-index: 1;
+    }
+  }
 }

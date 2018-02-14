@@ -7,13 +7,13 @@ $(() => {
   const $timerText = $('#timerText');
   const $gameplayArea = $('.gameplayArea');
   const wordsOnScreen = [];
-  const wordList = ['banana', 'pineapple', 'chihuahua', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny'];
+  const wordList = ['banana', 'pen', 'fight', 'robot', 'noodle', 'chicken', 'boo', 'wobble', 'shiny', 'apple', 'pineapple'];
   const specialWordList = ['hadouken'];
-  let levelSpeed = 5;
+  let levelSpeed = 4.5;
   let initialSound = true;
   //
   const minTimeBetweenWords = 500;
-  const maxTimeBetweenWords = 2500;
+  const maxTimeBetweenWords = 2000;
 
   // VARIABLES check for match
   const $form = $('.form');
@@ -24,7 +24,7 @@ $(() => {
   // VARIABLES modal, play
   const $modal = $('#myModal');
   const $playBtn = $('.playBtn');
-  const $audio = $('audio');
+  const $pressStartSound = $('#start-sound');
 
   // VARIABLES NEXT LEVEL
   const $finalScoreNumber = $('.final-score-number');
@@ -32,13 +32,14 @@ $(() => {
   const $divCongrats = $('.div-congrats');
   const $divCommiserations = $('.div-commiserations');
   const $endDiv = $('.end-div');
+  const $backToMain = $('.back-to-main');
   let timerID;
 
   // FUNCTIONS
 
   // TIMER
   function timer() {
-    let time = 20;
+    let time = 25;
     let countDown = null;
     $timerText.html(time);
     countDown = setInterval(() => {
@@ -64,11 +65,12 @@ $(() => {
     $divCommiserations.hide();
     $nextLevelScreen.hide();
 
-    // if (initialSound){
-    //   $audio.attr('src', '/sounds/pressStart.wav');
-    //   $audio.get(0).play();
-    //   initialSound = false;
-    // }
+    if (initialSound){
+      $pressStartSound.attr('src', '/sounds/pressStart.wav');
+      $pressStartSound.get(0).play();
+      initialSound = false;
+    }
+
 
     function createWords() {
       const delay = Math.round(Math.random() * maxTimeBetweenWords) + minTimeBetweenWords;
@@ -86,13 +88,19 @@ $(() => {
     img.src = 'https://i.imgur.com/6qkmc10.png';
 
     const specialWordDelay = Math.round(Math.random() * 20000);
+
     function createSpecialWord() {
       const specialWord = specialWordList[Math.floor(Math.random() * specialWordList.length)];
       const $imgContainer = $('<div>');
       $imgContainer.css({display: 'inlineBlock', position: 'absolute'});
       $imgContainer.append(`<p style="margin-top: -16px" class="${specialWord}">${specialWord}</p></div>`);
       $imgContainer.prepend(img);
-      animateWord($imgContainer, levelSpeed * 500);
+      wordsOnScreen.push({ word: specialWord, element: $imgContainer, class: 'special'});
+      animateWord($imgContainer, levelSpeed * 700);
+      const $hadoukenSound = $('<audio></audio>').attr({
+        'src': '/sounds/hadouken.mp3'
+      });
+      $hadoukenSound.get(0).play();
     }
 
     function animateWord($word, speed) {
@@ -117,7 +125,6 @@ $(() => {
 
   function checkForMatch(e) {
     e.preventDefault();
-    console.log('checking for match...');
     // searching the wordsOnScreen array for the index of the object with the same word as the input value. If it is found we will remove the whole element. * is this removing the entire object?
     const foundIndex = wordsOnScreen.findIndex(obj => obj.word === $input.val());
     if(foundIndex > -1) {
@@ -132,13 +139,9 @@ $(() => {
     $input.val('');
   }
 
-  $form.on('submit', checkForMatch);
-
   // NEXT LEVEL FUNCTION
 
-  const $backToMain = $('.back-to-main');
-
-  let hasEndOfGame = false;
+  const hasEndOfGame = false;
 
   function nextLevel() {
     clearInterval(createWordsInterval);
@@ -146,10 +149,14 @@ $(() => {
     $score.text(0);
     $input.val('');
     $nextLevelScreen.show();
-    if (result >= 1) {
-      levelSpeed = Math.max(levelSpeed-1,2);
+    if (result >= 10) {
+      levelSpeed = Math.max(levelSpeed-1,1.5);
       $divCongrats.show();
-      if (levelSpeed === 2){
+      if (levelSpeed === 3.5){
+        // setTimeout(level3Theme, 5000);
+        // clearTimeout(level3Theme, 25000);
+      }
+      if (levelSpeed === 1.5){
         $endDiv.show();
         $backToMain.show();
         $divCongrats.hide();
@@ -158,16 +165,16 @@ $(() => {
     } else {
       $divCommiserations.show();
     }
-    if (levelSpeed !==2){
+    if (levelSpeed !==1.5){
       result = 0;
       timerID = setTimeout(playGame, 5000);
     }
   }
 
-  // GAME OVER FUNCTION!
+  // GAME OVER and reset function
 
   function gameOver() {
-    if (levelSpeed > 2) {
+    if (levelSpeed > 1.5) {
       hasEndOfGame === false;
     } else {
       hasEndOfGame === true;
@@ -175,15 +182,19 @@ $(() => {
     }
   }
 
+  function resetGame() {
+    levelSpeed = 4.5;
+    $nextLevelScreen.hide();
+    $modal.show();
+  }
+
 
   // EVENT LISTENERS
   $playBtn.on('click', playGame);
 
-  $backToMain.on('click', () => {
-    levelSpeed = 5;
-    $nextLevelScreen.hide();
-    $modal.show();
-  });
+  $form.on('submit', checkForMatch);
+
+  $backToMain.on('click', resetGame);
 
 // End of page
 });
