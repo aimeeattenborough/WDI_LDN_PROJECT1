@@ -66,8 +66,9 @@ p.word {
       background-repeat:no-repeat;
       border: none;
       outline:none;
-      margin-bottom: 100px;
+      margin-bottom: 80px;
       animation: flash 1.6s infinite;
+
     }
     .playBtn:hover,
     .playBtn:focus {
@@ -103,8 +104,7 @@ header {
 }
 
 .gameplayArea {
-  height: 600px;
-  padding-top: 100px;
+  height: 575px;
   position: relative;
 }
 
@@ -209,6 +209,7 @@ main {
   right: 0;
   z-index: 1;
   display: none;
+  height: 1000px;
   .instructions {
     width: 500px;
     height: 300px;

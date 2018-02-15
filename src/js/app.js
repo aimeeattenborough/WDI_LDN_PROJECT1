@@ -1,8 +1,12 @@
 
 $(() => {
+  // VARIABLES
+  const minTimeBetweenWords = 500;
+  const maxTimeBetweenWords = 2000;
+  let levelSpeed = 4.3;
+  const specialWordDelay = Math.round(Math.random() * 20000);
 
-  console.log('loaded');
-
+  //DOM DEPENDENT VARIABLES
   // VARIABLES timer and play game
   const $timerText = $('#timerText');
   const $gameplayArea = $('.gameplayArea');
@@ -12,11 +16,8 @@ $(() => {
   let round2sound = true;
   let round3sound = true;
   let gameMusicVar = true;
-  const minTimeBetweenWords = 500;
-  const maxTimeBetweenWords = 2000;
   const wordsOnScreen = [];
   const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'jump', 'punch', 'kick', 'chop'];
-  let levelSpeed = 4.3;
   let createWordsInterval = null;
   const hasEndOfGame = false;
   // create special words
@@ -24,8 +25,6 @@ $(() => {
   const img = document.createElement('img');
   img.style.height = '120px';
   img.src = 'https://i.imgur.com/6qkmc10.png';
-
-  const specialWordDelay = Math.round(Math.random() * 20000);
 
   // VARIABLES check for match
   const $form = $('.form');
@@ -47,9 +46,9 @@ $(() => {
   const $backToMain = $('.back-to-main');
   let timerID;
 
-  // VARIABLE SOUNDS sounds
-  const $gameMusic = $('#game-music');
+  // VARIABLE SOUNDS
   let gameMusicTimerId;
+  const $gameMusic = $('#game-music');
   const $pressStartSound = $('#start-sound');
   const $clickSound = $('#click-sound');
   const $getReadyFighters = $('#get-ready');
