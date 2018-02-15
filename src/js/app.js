@@ -18,6 +18,7 @@ $(() => {
   const minTimeBetweenWords = 500;
   const maxTimeBetweenWords = 2000;
   let createWordsInterval = null;
+  const hasEndOfGame = false;
   // create special words
   const specialWordList = ['hadouken'];
   const img = document.createElement('img');
@@ -91,8 +92,6 @@ $(() => {
     $winSound.attr('src', '/sounds/shoryuken.wav');
     $winSound.get(0).play();
   }
-
-
 
   // INSTRUCTIONS
   function instructions() {
@@ -225,9 +224,6 @@ $(() => {
 
   // NEXT LEVEL FUNCTION
 
-  const hasEndOfGame = false; //i dont think i need this - to check
-
-
   function nextLevel() {
     clearInterval(createWordsInterval);
     $finalScoreNumber.text(result);
@@ -253,7 +249,7 @@ $(() => {
     }
     if (levelSpeed !==1.3){
       result = 0;
-      timerID = setTimeout(playGame, 20000);
+      timerID = setTimeout(playGame, 7000);
     }
   }
 
