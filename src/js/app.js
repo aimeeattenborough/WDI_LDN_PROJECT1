@@ -6,16 +6,18 @@ $(() => {
   // VARIABLES timer and play game
   const $timerText = $('#timerText');
   const $gameplayArea = $('.gameplayArea');
+  const $instructionButton = $('.instruction-button');
   let initialSound = true;
+  let round1sound = true;
   let round2sound = true;
   let round3sound = true;
-  let audio1ID;
   let gameMusicVar = true;
   const wordsOnScreen = [];
-  const wordList = ['banana', 'pen', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'pineapple', 'bruise', 'punch', 'kick'];
+  const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'bruise', 'punch', 'kick'];
   let levelSpeed = 4.5;
   const minTimeBetweenWords = 500;
   const maxTimeBetweenWords = 2000;
+  let createWordsInterval = null;
   // create special words
   const specialWordList = ['hadouken'];
   const img = document.createElement('img');
@@ -30,10 +32,10 @@ $(() => {
   const $score = $('#score');
   let result = 0;
 
-  // VARIABLES modal, play
+  // VARIABLES modal, instructions
   const $modal = $('#myModal');
   const $playBtn = $('.playBtn');
-  const $pressStartSound = $('#start-sound');
+  const $instructions = $('.instructions');
 
   // VARIABLES NEXT LEVEL
   const $finalScoreNumber = $('.final-score-number');
@@ -45,12 +47,34 @@ $(() => {
   let timerID;
 
   // VARIABLE SOUNDS sounds
+  const $gameMusic = $('#game-music');
+  const $pressStartSound = $('#start-sound');
+  const $clickSound = $('#click-sound');
   const $getReadyFighters = $('#get-ready');
   const $beatEmUp = $('#beat-em-up');
+  const $itsShowtime = $('#its-showtime');
+  const $winSound = $('#win');
 
   // FUNCTIONS
+  let gameMusicTimerId;
+  //AUDIO game music
+  function gameMusic() {
+    $gameMusic.attr('src', '/sounds/akuma_stage.wav');
+    $gameMusic.get(0).play();
+    gameMusicTimerId = setInterval(() => {
+      $gameMusic.get(0).play();
+    }, 162000);
+  }
 
   // SOUNDS
+  function startSound() {
+    $pressStartSound.attr('src', '/sounds/pressStart.wav');
+    $pressStartSound.get(0).play();
+  }
+  function clickSound() {
+    $clickSound.attr('src', '/sounds/clicknoise.wav');
+    $clickSound.get(0).play();
+  }
   function getReadySound() { //audio1
     $getReadyFighters.attr('src', '/sounds/get_ready_fighters.wav');
     $getReadyFighters.get(0).play();
@@ -60,8 +84,28 @@ $(() => {
     $beatEmUp.get(0).play();
   }
   function itsShowtime() { //audio3
-    $beatEmUp.attr('src', '/sounds/its_showtime.wav');
-    $beatEmUp.get(0).play();
+    $itsShowtime.attr('src', '/sounds/its_showtime.wav');
+    $itsShowtime.get(0).play();
+  }
+  function $winShoryuken() {
+    $winSound.attr('src', '/sounds/shoryuken.wav');
+    $winSound.get(0).play();
+  }
+
+
+
+  // INSTRUCTIONS
+  function instructions() {
+    clickSound();
+    $modal.hide();
+    $nextLevelScreen.show();
+    $instructions.show();
+    $endDiv.hide();
+    initialSound = true;
+    round1sound = true;
+    round2sound = true;
+    round3sound = true;
+    gameMusicVar = true;
   }
 
   // TIMER
@@ -83,27 +127,28 @@ $(() => {
   }
 
   // PLAY GAME FUNCTION
-
-  let createWordsInterval = null;
+  function inputField() {
+    $input.focus();
+    $input.css({outline: 'none'});
+  }
 
   function playGame() {
-    $modal.hide();
     $divCongrats.hide();
+    $instructions.hide();
     $divCommiserations.hide();
     $nextLevelScreen.hide();
     $endDiv.hide();
-
-    $(document).ready(function() {
-      $input.focus();
-    });
+    inputField();
 
     if (initialSound){
-      $pressStartSound.attr('src', '/sounds/pressStart.wav');
-      $pressStartSound.get(0).play();
-      audio1ID = setTimeout(getReadySound, 1000);
+      startSound();
+      setTimeout(getReadySound, 1000);
       initialSound = false;
+      round1sound = false;
+    } else if (round1sound){
+      getReadySound();
+      round1sound = false;
     } else if (round2sound) {
-      console.log(round2sound);
       beatEmUpSound();
       round2sound = false;
     } else if (round3sound) {
@@ -128,7 +173,6 @@ $(() => {
       animateWord($word, levelSpeed * 1000);
     }
 
-
     function createSpecialWord() {
       const specialWord = specialWordList[Math.floor(Math.random() * specialWordList.length)];
       const $imgContainer = $('<div>');
@@ -138,7 +182,7 @@ $(() => {
       wordsOnScreen.push({ word: specialWord, element: $imgContainer, class: 'special'});
       animateWord($imgContainer, levelSpeed * 700);
       const $hadoukenSound = $('<audio></audio>').attr({
-        'src': '/sounds/hadouken.mp3'
+        'src': '/sounds/hadouken.wav'
       });
       $hadoukenSound.get(0).play();
     }
@@ -193,9 +237,7 @@ $(() => {
     if (result >= 1) {
       levelSpeed = Math.max(levelSpeed-1,1.5);
       $divCongrats.show();
-      if (levelSpeed === 3.5){
-        // beatEmUpSound;
-      }
+      $winShoryuken();
       if (levelSpeed === 1.5){
         $endDiv.show();
         $backToMain.show();
@@ -204,6 +246,10 @@ $(() => {
       }
     } else {
       $divCommiserations.show();
+      if (levelSpeed === 4.5) round1sound = true;
+      if (levelSpeed === 3.5) round2sound = true;
+      if (levelSpeed === 2.5) round3sound = true;
+      //playsound
     }
     if (levelSpeed !==1.5){
       result = 0;
@@ -220,6 +266,7 @@ $(() => {
       hasEndOfGame === true;
       clearTimeout(timerID);
     }
+    clearInterval(gameMusicTimerId);
   }
 
   function resetGame() {
@@ -227,22 +274,16 @@ $(() => {
     result = 0;
     $nextLevelScreen.hide();
     $modal.show();
-    initialSound = true;
-    round2sound = true;
-    round3sound = true;
+    $gameMusic.get(0).pause();
+    $gameMusic.get(0).currentTime = 0;
   }
 
-  //AUDIO game music
-
-  const $gameMusic = $('#game-music');
-  function gameMusic() {
-    $gameMusic.attr('src', '/sounds/akuma_stage.mp3');
-    $gameMusic.get(0).play();
-  }
 
 
   // EVENT LISTENERS
-  $playBtn.on('click', playGame);
+  $playBtn.on('click', instructions);
+
+  $instructionButton.on('click', playGame);
 
   $form.on('submit', checkForMatch);
 

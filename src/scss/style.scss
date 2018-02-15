@@ -9,32 +9,25 @@ body {
   margin: 0;
   font-family: 'Bungee Inline', cursive;
 }
-h1 {
+#timerText {
   text-align: center;
-  font-size: 30px;
+  font-size: 38px;
   color: white;
   margin: 0;
 }
 
 p {
-  font-size: 35px;
+  font-size: 33px;
   color: white;
   font-weight: bold;
 }
 
 p.word {
   position: absolute;
-  top: 0;
+  top: 50px;
   left: 0;
 }
 
-p.special {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: red;
-  background-image: url("https://i.imgur.com/6qkmc10.png");
-}
 // MODAL
 /* The Modal (background) */
 .modal {
@@ -85,7 +78,6 @@ p.special {
 }
 
 
-
 @keyframes flash {
   from, 50%, to {
     opacity: 1;
@@ -100,8 +92,6 @@ p.special {
   -webkit-animation-name: flash;
   animation-name: flash;
 }
-
-
 
 
 // Gameplay area
@@ -127,7 +117,6 @@ main {
                      background-size: cover;
                      background-repeat:no-repeat;
                      background-position: center;
-
 }
 
 .wordScroll {
@@ -171,6 +160,18 @@ main {
   border: 0;
   padding: 0;
   float: left;
+  #text-box {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    float: left;
+  }
+  .submit {
+    display: none;
+  }
 }
 .score-div {
   width: 30%;
@@ -181,39 +182,15 @@ main {
   border: 0;
   padding: 0;
   float: left;
+  .score-text {
+    padding: 0;
+    border: 0;
+    margin: 15px 22px;
+    color: white;
+    float: right;
+    font-size: 28px;
+  }
 }
-.score-text {
-  padding: 0;
-  border: 0;
-  margin: 5px 20px;
-  color: white;
-  float: right;
-  font-size: 25px;
-}
-
-#text-box {
-    width: 80%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    display: inline-block;
-    float: left;
-}
-
-.submit {
-     width: 0%;
-     background-color: #8F556A;
-     color: white;
-     padding: 14px 20px;
-     margin: 8px 10px;
-     border: none;
-     border-radius: 4px;
-     cursor: pointer;
-     float: left;
-     display: none;
- }
-
 
 
 // Next level / try again screens
@@ -232,6 +209,29 @@ main {
   right: 0;
   z-index: 1;
   display: none;
+  .instructions {
+    width: 500px;
+    height: 300px;
+    margin: 100px auto;
+    display: none;
+    .instruction-button {
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0 auto;
+      display: block;
+      background-color: Transparent;
+      background-repeat:no-repeat;
+      border: none;
+      outline:none;
+      animation: flash 1.6s infinite;
+      font-family: 'Bungee Inline', cursive;
+    }
+    .instruction-button:hover,
+    .instruction-button:focus {
+      cursor: url("https://i.imgur.com/vdpcmid.png"), pointer;
+    }
+  }
   p {
     color: white;
     font-size: 20px;
@@ -241,6 +241,7 @@ main {
     width: 500px;
     height: 300px;
     margin: 100px auto;
+    display: none;
     img {
       margin: 10px auto;
     }
@@ -263,9 +264,22 @@ main {
     display: none;
 
     .back-to-main {
-      height: 20px;
       display: none;
-      z-index: 1;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 auto;
+      display: block;
+      background-color: Transparent;
+      background-repeat:no-repeat;
+      border: none;
+      outline:none;
+      animation: flash 1.6s infinite;
+      font-family: 'Bungee Inline', cursive;
+    }
+    .back-to-main:hover,
+    .back-to-main:focus {
+      cursor: url("https://i.imgur.com/vdpcmid.png"), pointer;
     }
   }
 }

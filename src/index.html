@@ -32,13 +32,12 @@
     </header>
 
     <!-- GAMEPLAY AREA -->
-    <section>
+    <section class="game-area">
 
       <div class="round-1-type">
         <div class="gameplayArea"></div>
 
       </div>
-    </section>
 
   </main>
 
@@ -58,33 +57,47 @@
       <h2 class="score-text">Score: <span id="score">0</span></h2>
     </div>
 
+  </section>
     <!-- NEXT LEVEL / TRY AGAIN -->
     <div class="next-level-screen">
 
+      <div class="instructions">
+        <p>Instructions: </p>
+        <p>The spirit of a true warrior resides within your fists. Time  to test your skills in the arena. </p>
+        <p>You have 25 seconds to type as many words as possible. Score 10 points to progress to the next level.</p>
+        <p>Each word earns you 1 point. Watch out for the bonus hadouken for an extra 5.</p>
+        <p>Now, young fighter, show me your power!</p>
+        <button class="instruction-button"type="button" name="button">GO!</button>
+      </div>
+
       <div class="div-congrats">
-        <p>YOU WIN</p>
+        <img src="https://i.imgur.com/HPRDRzr.png" alt="win">
         <p class="">Congratulations you have scored enough to move on to the next level. Your final score is <span class="final-score-number">X</span></p>
         <img src="https://i.imgur.com/jqmqsFl.gif" alt="ryu">
       </div>
 
       <div class="div-commiserations">
-        <p>YOU LOSE</p>
+        <img src="https://i.imgur.com/E6FR6bi.png" alt="lose">
         <p class="better-luck">Stand up and face me again. I have yet to see your best... Your final score is <span class="final-score-number">X</span></p>
         <img src="https://i.imgur.com/pHBmFoA.gif" alt="noogie">
       </div>
 
       <div class="end-div">
+        <img src="https://i.imgur.com/E7GHuRE.png" alt="game-over">
         <p>Congratulations you have completed the game.</p>
-        <button class="back-to-main">Return to main menu</button>
+        <button class="back-to-main">Main menu</button>
       </div>
 
     </div>
 
   </footer>
+  <audio id="game-music"></audio>
 <audio id="start-sound"></audio>
-<audio id="game-music"></audio>
+<audio id="click-sound"></audio>
 <audio id="get-ready"></audio>
 <audio id="beat-em-up"></audio>
+<audio id="its-showtime"></audio>
+<audio id="win"></audio>
 
 </body>
 </html>
