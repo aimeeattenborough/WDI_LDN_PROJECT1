@@ -266,7 +266,6 @@ main {
       width: 400px;
       display: block;
   }
-
   .noogie {
     width: 150px;
     height: auto;
@@ -278,7 +277,11 @@ main {
     height: 300px;
     margin: 100px auto;
     display: none;
-
+    .game-over {
+      margin: 0 auto;
+      width: 400px;
+      display: block;
+    }
     .back-to-main {
       display: none;
       color: white;
@@ -297,5 +300,6 @@ main {
     .back-to-main:focus {
       cursor: url("https://i.imgur.com/vdpcmid.png"), pointer;
     }
+
   }
 }

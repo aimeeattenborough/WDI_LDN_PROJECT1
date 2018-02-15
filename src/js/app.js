@@ -12,11 +12,11 @@ $(() => {
   let round2sound = true;
   let round3sound = true;
   let gameMusicVar = true;
-  const wordsOnScreen = [];
-  const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'bruise', 'punch', 'kick', 'chop'];
-  let levelSpeed = 4.3;
   const minTimeBetweenWords = 500;
   const maxTimeBetweenWords = 2000;
+  const wordsOnScreen = [];
+  const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'jump', 'punch', 'kick', 'chop'];
+  let levelSpeed = 4.3;
   let createWordsInterval = null;
   const hasEndOfGame = false;
   // create special words
@@ -56,6 +56,8 @@ $(() => {
   const $beatEmUp = $('#beat-em-up');
   const $itsShowtime = $('#its-showtime');
   const $winSound = $('#win');
+  const $KO = $('#KO');
+
 
   // FUNCTIONS
   //AUDIO game music
@@ -88,9 +90,13 @@ $(() => {
     $itsShowtime.attr('src', '/sounds/its_showtime.wav');
     $itsShowtime.get(0).play();
   }
-  function $winShoryuken() {
+  function winShoryuken() {
     $winSound.attr('src', '/sounds/shoryuken.wav');
     $winSound.get(0).play();
+  }
+  function KO() {
+    $KO.attr('src', '/sounds/KO.wav');
+    $KO.get(0).play();
   }
 
   // INSTRUCTIONS
@@ -230,10 +236,10 @@ $(() => {
     $score.text(0);
     $input.val('');
     $nextLevelScreen.show();
-    if (result >= 10) {
+    if (result >= 12) {
       levelSpeed = Math.max(levelSpeed-1,1.3);
       $divCongrats.show();
-      $winShoryuken();
+      winShoryuken();
       if (levelSpeed === 1.3){
         $endDiv.show();
         $backToMain.show();
@@ -245,7 +251,7 @@ $(() => {
       if (levelSpeed === 4.3) round1sound = true;
       if (levelSpeed === 3.3) round2sound = true;
       if (levelSpeed === 2.3) round3sound = true;
-      //playsound
+      KO();
     }
     if (levelSpeed !==1.3){
       result = 0;
@@ -273,7 +279,6 @@ $(() => {
     $gameMusic.get(0).pause();
     $gameMusic.get(0).currentTime = 0;
   }
-
 
   // EVENT LISTENERS
   $playBtn.on('click', instructions);
