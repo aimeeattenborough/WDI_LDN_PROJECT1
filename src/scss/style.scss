@@ -242,20 +242,38 @@ main {
     height: 300px;
     margin: 100px auto;
     display: none;
-    img {
-      margin: 10px auto;
+    .win {
+      margin: 0 auto;
+      width: 400px;
+      display: block;
+    }
+    .shoryuken {
+      width: 250px;
+      height: auto;
+      margin: 0 auto;
+      display: block;
     }
   }
 
   .div-commiserations {
     width: 500px;
     height: 300px;
-    margin: 100px auto;
+    margin: 0 auto;
     display: none;
   }
-  .div-commiserations img {
-    width: 100px;
+  .you-lose {
+      margin: 0 auto;
+      width: 400px;
+      display: block;
+  }
+  // .better-luck {
+  //   color: red;
+  // }
+  .noogie {
+    width: 150px;
     height: auto;
+    margin: 0 auto;
+    display: block;
   }
   .end-div {
     width: 500px;

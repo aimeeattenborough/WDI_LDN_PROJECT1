@@ -13,8 +13,8 @@ $(() => {
   let round3sound = true;
   let gameMusicVar = true;
   const wordsOnScreen = [];
-  const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'bruise', 'punch', 'kick'];
-  let levelSpeed = 4.5;
+  const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'bruise', 'punch', 'kick', 'chop'];
+  let levelSpeed = 4.3;
   const minTimeBetweenWords = 500;
   const maxTimeBetweenWords = 2000;
   let createWordsInterval = null;
@@ -48,6 +48,7 @@ $(() => {
 
   // VARIABLE SOUNDS sounds
   const $gameMusic = $('#game-music');
+  let gameMusicTimerId;
   const $pressStartSound = $('#start-sound');
   const $clickSound = $('#click-sound');
   const $getReadyFighters = $('#get-ready');
@@ -56,7 +57,6 @@ $(() => {
   const $winSound = $('#win');
 
   // FUNCTIONS
-  let gameMusicTimerId;
   //AUDIO game music
   function gameMusic() {
     $gameMusic.attr('src', '/sounds/akuma_stage.wav');
@@ -234,11 +234,11 @@ $(() => {
     $score.text(0);
     $input.val('');
     $nextLevelScreen.show();
-    if (result >= 1) {
-      levelSpeed = Math.max(levelSpeed-1,1.5);
+    if (result >= 10) {
+      levelSpeed = Math.max(levelSpeed-1,1.3);
       $divCongrats.show();
       $winShoryuken();
-      if (levelSpeed === 1.5){
+      if (levelSpeed === 1.3){
         $endDiv.show();
         $backToMain.show();
         $divCongrats.hide();
@@ -246,21 +246,21 @@ $(() => {
       }
     } else {
       $divCommiserations.show();
-      if (levelSpeed === 4.5) round1sound = true;
-      if (levelSpeed === 3.5) round2sound = true;
-      if (levelSpeed === 2.5) round3sound = true;
+      if (levelSpeed === 4.3) round1sound = true;
+      if (levelSpeed === 3.3) round2sound = true;
+      if (levelSpeed === 2.3) round3sound = true;
       //playsound
     }
-    if (levelSpeed !==1.5){
+    if (levelSpeed !==1.3){
       result = 0;
-      timerID = setTimeout(playGame, 5000);
+      timerID = setTimeout(playGame, 20000);
     }
   }
 
   // GAME OVER and reset function
 
   function gameOver() {
-    if (levelSpeed > 1.5) {
+    if (levelSpeed > 1.3) {
       hasEndOfGame === false;
     } else {
       hasEndOfGame === true;
@@ -270,14 +270,13 @@ $(() => {
   }
 
   function resetGame() {
-    levelSpeed = 4.5;
+    levelSpeed = 4.3;
     result = 0;
     $nextLevelScreen.hide();
     $modal.show();
     $gameMusic.get(0).pause();
     $gameMusic.get(0).currentTime = 0;
   }
-
 
 
   // EVENT LISTENERS
