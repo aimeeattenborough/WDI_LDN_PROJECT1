@@ -59,7 +59,7 @@ $(() => {
   // FUNCTIONS
   //AUDIO game music
   function gameMusic() {
-    $gameMusic.attr('src', '/sounds/akuma_stage.wav');
+    $gameMusic.attr('src', '/sounds/Akuma_stage.wav');
     $gameMusic.get(0).play();
     gameMusicTimerId = setInterval(() => {
       $gameMusic.get(0).play();
