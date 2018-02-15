@@ -7,6 +7,9 @@ $(() => {
   const $timerText = $('#timerText');
   const $gameplayArea = $('.gameplayArea');
   let initialSound = true;
+  let round2sound = true;
+  let round3sound = true;
+  let audio1ID;
   let gameMusicVar = true;
   const wordsOnScreen = [];
   const wordList = ['banana', 'pen', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'pineapple', 'bruise', 'punch', 'kick'];
@@ -48,12 +51,16 @@ $(() => {
   // FUNCTIONS
 
   // SOUNDS
-  function getReadySound() {
+  function getReadySound() { //audio1
     $getReadyFighters.attr('src', '/sounds/get_ready_fighters.wav');
     $getReadyFighters.get(0).play();
   }
-  function beatEmUpSound() {
-    $beatEmUp.attr('src', '/sounds/get_ready_fighters.wav');
+  function beatEmUpSound() { //audio2
+    $beatEmUp.attr('src', '/sounds/beat_em_up_guys.wav');
+    $beatEmUp.get(0).play();
+  }
+  function itsShowtime() { //audio3
+    $beatEmUp.attr('src', '/sounds/its_showtime.wav');
     $beatEmUp.get(0).play();
   }
 
@@ -93,8 +100,15 @@ $(() => {
     if (initialSound){
       $pressStartSound.attr('src', '/sounds/pressStart.wav');
       $pressStartSound.get(0).play();
-      setTimeout(getReadySound, 1000);
+      audio1ID = setTimeout(getReadySound, 1000);
       initialSound = false;
+    } else if (round2sound) {
+      console.log(round2sound);
+      beatEmUpSound();
+      round2sound = false;
+    } else if (round3sound) {
+      itsShowtime();
+      round3sound = false;
     }
 
     if(gameMusicVar){
@@ -180,7 +194,7 @@ $(() => {
       levelSpeed = Math.max(levelSpeed-1,1.5);
       $divCongrats.show();
       if (levelSpeed === 3.5){
-        setTimeout(beatEmUpSound, 5000);
+        // beatEmUpSound;
       }
       if (levelSpeed === 1.5){
         $endDiv.show();
@@ -213,6 +227,9 @@ $(() => {
     result = 0;
     $nextLevelScreen.hide();
     $modal.show();
+    initialSound = true;
+    round2sound = true;
+    round3sound = true;
   }
 
   //AUDIO game music
