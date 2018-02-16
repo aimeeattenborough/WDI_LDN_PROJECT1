@@ -52,22 +52,19 @@ p.word {
       border: 1px solid #888;
       width: 80%;
       height: 80%;
-      display: flex;
 
     }
     /* The play Button */
     .playBtn {
       font-weight: bold;
-      margin: auto;
-      margin-top: 0 auto;
       height: 20px;
-      align-items: flex-end;
       background-color: Transparent;
       background-repeat:no-repeat;
       border: none;
       outline:none;
-      margin-bottom: 80px;
       animation: flash 1.6s infinite;
+      display: block;
+      margin: 8% auto;
 
     }
     .playBtn:hover,
@@ -78,6 +75,12 @@ p.word {
     }
 }
 
+.invisible {
+  width: 100%;
+  height: 60%;
+  visibility: hidden;
+  z-index: 999;
+}
 
 @keyframes flash {
   from, 50%, to {
@@ -94,7 +97,6 @@ p.word {
   animation-name: flash;
 }
 
-
 // Gameplay area
 
 // timer
@@ -104,7 +106,7 @@ header {
 }
 
 .gameplayArea {
-  height: 575px;
+  height: calc(100vh - 176px);
   position: relative;
 }
 
@@ -143,7 +145,7 @@ main {
 .left-footer {
   margin: 0 auto;
   width: 35%;
-  height: 180px;
+  height: 100px;
   background-color: black;
   display: inline-block;
   border: 0;
@@ -154,7 +156,7 @@ main {
 .usersInput {
   margin: 0 auto;
   width: 35%;
-  height: 180px;
+  height: 100px;
   background-color: black;
   display: inline-block;
   border: 0;
@@ -163,7 +165,7 @@ main {
   #text-box {
     width: 80%;
     padding: 12px 20px;
-    margin: 10px 0;
+    margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     display: inline-block;
@@ -175,7 +177,7 @@ main {
 }
 .score-div {
   width: 30%;
-  height: 180px;
+  height: 100px;
   background-color: black;
   display: inline-block;
   margin: 0;
@@ -209,7 +211,7 @@ main {
   right: 0;
   z-index: 1;
   display: none;
-  height: 1000px;
+  height: 100vh;
   .instructions {
     width: 500px;
     height: 300px;

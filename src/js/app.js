@@ -17,7 +17,7 @@ $(() => {
   let round3sound = true;
   let gameMusicVar = true;
   const wordsOnScreen = [];
-  const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'jump', 'punch', 'kick', 'chop'];
+  const wordList = ['banana', 'sushi', 'fight', 'robot', 'noodle', 'chicken', 'flip', 'wobble', 'shiny', 'apple', 'throw', 'jump', 'punch', 'kick', 'chop', 'frog'];
   let createWordsInterval = null;
   const hasEndOfGame = false;
   // create special words
@@ -97,6 +97,7 @@ $(() => {
     $KO.attr('src', '/sounds/KO.wav');
     $KO.get(0).play();
   }
+
 
   // INSTRUCTIONS
   function instructions() {
@@ -213,7 +214,7 @@ $(() => {
 
   function checkForMatch(e) {
     e.preventDefault();
-    // searching the wordsOnScreen array for the index of the object with the same word as the input value. If it is found we will remove the whole element. * is this removing the entire object?
+    // searching the wordsOnScreen array for the index of the object with the same word as the input value. If it is found we will remove the whole element.,
     const foundIndex = wordsOnScreen.findIndex(obj => obj.word === $input.val());
     if(foundIndex > -1) {
       if (wordsOnScreen[foundIndex].class === 'special'){
