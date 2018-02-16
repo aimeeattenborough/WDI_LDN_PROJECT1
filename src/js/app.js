@@ -2,7 +2,7 @@
 $(() => {
   // VARIABLES
   const minTimeBetweenWords = 500;
-  const maxTimeBetweenWords = 2000;
+  const maxTimeBetweenWords = 1800;
   let levelSpeed = 4.3;
   const specialWordDelay = Math.round(Math.random() * 20000);
 
